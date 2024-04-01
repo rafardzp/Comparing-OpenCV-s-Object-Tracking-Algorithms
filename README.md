@@ -20,12 +20,17 @@ Algorithms Included
 
 The following object tracking algorithms from the OpenCV library are included in this project:
 
-    **BOOSTING**: This algorithm is based on online boosting which combines multiple weak learners to create a strong classifier.
-    **MIL (Multiple Instance Learning)**: MIL learns a classifier from a set of labeled bags, where each bag contains multiple instances of an object.
-    **KCF (Kernelized Correlation Filters)**: KCF is a fast and accurate tracker based on the correlation filter framework.
-    **TLD (Tracking, Learning, and Detection)**: TLD integrates tracking, learning, and detection to handle tracking failures effectively.
-    **MedianFlow**: This algorithm utilizes a robust median flow model to track objects.
-    **GOTURN**: GOTURN (Generic Object Tracking Using Regression Networks) employs deep convolutional neural networks to predict object locations.
+- **BOOSTING**: This algorithm is based on online boosting which combines multiple weak learners to create a strong classifier.
+
+- **MIL (Multiple Instance Learning)**: MIL learns a classifier from a set of labeled bags, where each bag contains multiple instances of an object.
+
+- **KCF (Kernelized Correlation Filters)**: KCF is a fast and accurate tracker based on the correlation filter framework.
+
+- **TLD (Tracking, Learning, and Detection)**: TLD integrates tracking, learning, and detection to handle tracking failures effectively.
+    
+- **MedianFlow**: This algorithm utilizes a robust median flow model to track objects.
+    
+- **GOTURN**: GOTURN (Generic Object Tracking Using Regression Networks) employs deep convolutional neural networks to predict object locations.
 
 ## **Usage**
 
