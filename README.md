@@ -36,6 +36,14 @@ The following object tracking algorithms from the OpenCV library are included in
 
 The object tracking algorithms comparison is conducted using the XYZ dataset. This dataset consists of ... . You can download the dataset from [...]().
 
+Options:
+
+- [GOT-10k (Generic Object Tracking Benchmark)](https://paperswithcode.com/dataset/got-10k)
+
+- [VOT2018](https://paperswithcode.com/dataset/vot2018)
+
+- [LaSOT (Large-scale Single Object Tracking)](https://paperswithcode.com/dataset/lasot)
+
 Please refer to the dataset's documentation for more details on its usage and licensing terms.
 
 
