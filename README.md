@@ -6,17 +6,20 @@ This repository contains code and resources for comparing different object track
 
 ## **Table of Contents**
 
-- [Introduction](#introduction)
-- [Algorithms Included](#algorithms-included)
-- [Usage](#usage)
-- [Results](#results)
-- [Contributing](#contributing)
-- [License](#license)
+- [**Comparing OpenCV's Object Tracking Algorithms**](#comparing-opencvs-object-tracking-algorithms)
+  - [**Table of Contents**](#table-of-contents)
+  - [**Introduction**](#introduction)
+  - [**Tested Algorithms**](#tested-algorithms)
+  - [**Dataset**](#dataset)
+  - [**Usage**](#usage)
+  - [**Results**](#results)
+  - [**Contributing**](#contributing)
 
 ## **Introduction**
 
-Object tracking is a crucial task in computer vision applications, allowing for the continuous monitoring and analysis of objects in video streams. OpenCV provides several built-in object tracking algorithms, each with its own strengths and weaknesses. This project aims to provide a comprehensive comparison of these algorithms to aid researchers and developers in choosing the most suitable one for their specific use case.
-Algorithms Included
+Object tracking is a crucial task in computer vision applications, allowing for the continuous monitoring and analysis of objects in video streams. OpenCV provides several built-in object tracking algorithms. This project aims to provide a comprehensive comparison of these algorithms to aid researchers and developers in choosing the most suitable one for their specific use case.
+
+## **Tested Algorithms**
 
 The following object tracking algorithms from the OpenCV library are included in this project:
 
@@ -31,6 +34,12 @@ The following object tracking algorithms from the OpenCV library are included in
 - **MedianFlow**: This algorithm utilizes a robust median flow model to track objects.
     
 - **GOTURN**: GOTURN (Generic Object Tracking Using Regression Networks) employs deep convolutional neural networks to predict object locations.
+
+- **DaSiamRPN**: 
+
+- **Nano**: 
+
+- **VIT**: 
 
 ## **Dataset**
 
