@@ -32,6 +32,10 @@ The following object tracking algorithms from the OpenCV library are included in
 - **TLD (Tracking, Learning, and Detection)**: TLD integrates tracking, learning, and detection to handle tracking failures effectively.
     
 - **MedianFlow**: This algorithm utilizes a robust median flow model to track objects.
+
+- **CSRT**: 
+
+- **MOSSE**:
     
 - **GOTURN**: GOTURN (Generic Object Tracking Using Regression Networks) employs deep convolutional neural networks to predict object locations.
 
