@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import scipy.io
 import argparse
 import sys
 import csv
@@ -10,9 +11,9 @@ def parse_args():
     ap = argparse.ArgumentParser(description="Evaluate a specified tracker on a video set and extract performance metrics")
     ap.add_argument("-t", "--tracker", type=str, help="String defining the tracker")
     ap.add_argument("-s", "--store_videos", type=bool, help="Boolean to define is videos are saved", default=True)
-    ap.add_argument("-v", "--verbose", type=bool, help="Boolean to define if videos are shown", default=False)
+    ap.add_argument("-v", "--verbose", type=bool, help="Boolean to define if videos are shown", default=True)
     
-    if len(sys.argv == 1):
+    if len(sys.argv) == 1:
         ap.print_help()
         sys.exit(1)
 
@@ -23,26 +24,49 @@ def parse_args():
 def create_tracker(tracker_type):
     if tracker_type == 'KCF':
         return cv2.legacy.TrackerKCF.create()
+    
     elif tracker_type == 'CSRT':
         return cv2.legacy.TrackerCSRT.create()
+    
     elif tracker_type == 'BOOSTING':
         return cv2.legacy.TrackerBoosting.create()
+    
     elif tracker_type == 'MedianFlow':
         return cv2.legacy.TrackerMedianFlow.create()
+    
     elif tracker_type == 'MIL':
         return cv2.legacy.TrackerMIL.create()
+    
     elif tracker_type == 'MOSSE':
         return cv2.legacy.TrackerMOSSE.create()
+    
     elif tracker_type == 'TLD':
         return cv2.legacy.TrackerTLD.create()
+    
     elif tracker_type == 'GOTURN':
-        return cv2.TrackerGOTURN.create()
+        params = cv2.TrackerGOTURN_Params()
+        params.modelBin = "Models/goturn.caffemodel.zip"
+        params.modelTxt = "Models/goturn.prototxt"
+        return cv2.TrackerGOTURN.create(params)
+    
     elif tracker_type == 'DaSiamRPN':
-        return cv2.TrackerDaSiamRPN.create()
+        params = cv2.TrackerDaSiamRPN_Params()
+        params.kernel_cls1 = "Models/dasiamrpn_kernel_cls1.onnx"
+        params.kernel_r1 = "Models/dasiamrpn_kernel_r1.onnx"
+        params.model = "Models/dasiamrpn_model.onnx"
+        return cv2.TrackerDaSiamRPN.create(params)
+    
     elif tracker_type == 'Nano':
-        return cv2.TrackerNano.create()
+        params = cv2.TrackerNano_Params()
+        params.backbone = 'Models/nanotrack_backbone_sim.onnx'
+        params.neckhead = 'Models/nanotrack_head_sim.onnx'
+        return cv2.TrackerNano.create(params)
+    
     elif tracker_type == 'Vit':
-        return cv2.TrackerVIT.create()
+        params = cv2.TrackerVit_Params()
+        params.net = "Models\object_tracking_vittrack_2023sep.onnx"
+        return cv2.TrackerVit.create(params)
+    
     else:
         return None
 
@@ -105,16 +129,20 @@ if __name__ == '__main__':
             continue
 
         video_name = os.path.splitext(video_file)[0]
-        gt_file = os.path.join(gt_folder, f"{video_name}.txt")
+        # gt_file = os.path.join(gt_folder, f"{video_name}.txt")
+        gt_file = os.path.join(gt_folder, f"{video_name}.mat")
 
         # Read video
         video_capture = cv2.VideoCapture(video_path)
 
         # Read GT file
-        with open(gt_file, 'r') as f:
-            lines = f.readlines()
-            gt_bbox_list = [list(map(int, line.strip().split(','))) for line in lines]
+        # with open(gt_file, 'r') as f:
+        #     lines = f.readlines()
+        #     gt_bbox_list = [list(map(int, line.strip().split(','))) for line in lines]
 
+        gt_data = scipy.io.loadmat(gt_file)
+        gt_bbox_list = gt_data['labels']
+        
         # Create video to save if needed
         if args.store_videos:
             video_fps = video_capture.get(cv2.CAP_PROP_FPS)
@@ -123,7 +151,7 @@ if __name__ == '__main__':
 
             output_video_path = os.path.join(output_folder + 'Videos/', f'{video_name}_{args.tracker}_output.avi')
             fourcc = cv2.VideoWriter_fourcc(*'XVID')
-            output_video = cv2.VideoWriter(output_video_path, fourcc, fps, (frame_width, frame_height))
+            output_video = cv2.VideoWriter(output_video_path, fourcc, video_fps, (frame_width, frame_height))
 
         # Read first frame
         success, frame = video_capture.read()
@@ -170,15 +198,15 @@ if __name__ == '__main__':
                 cv2.rectangle(frame, (int(gt_bbox[0]), int(gt_bbox[1])), (int(gt_bbox[0] + gt_bbox[2]), 
                                 int(gt_bbox[1] + gt_bbox[3])), (0, 255, 0), 2)
                 cv2.rectangle(frame, (int(bbox[0]), int(bbox[1])), (int(bbox[0] + bbox[2]), 
-                                int(bbox[1] + bbox[3])), (0, 255, 0), 2)
-                cv2.putText(frame, "FPS : " + str(int(fps[-1])), (100, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (50, 170, 50), 2)
+                                int(bbox[1] + bbox[3])), (0, 0, 255), 2)
+                cv2.putText(frame, "FPS : " + str(int(fps[-1])), (50, 50), cv2.FONT_HERSHEY_DUPLEX, 0.75, (0, 0, 255), 2)
 
                 if args.store_videos:
                     output_video.write(frame)
 
             else:
                 total_failures += 1
-                cv2.putText(frame, "Tracking failure detected", (100, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 0, 255), 2)
+                cv2.putText(frame, "Tracking failure detected", (100, 80), cv2.FONT_HERSHEY_DUPLEX, 0.75, (255, 0, 0), 2)
                 
                 if args.store_videos:
                     output_video.write(frame)
