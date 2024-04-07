@@ -33,17 +33,17 @@ The following object tracking algorithms from the OpenCV library are included in
     
 - **MedianFlow**: This algorithm utilizes a robust median flow model to track objects.
 
-- **CSRT**: 
+- **CSRT (Channel and Spatial Reliability Tracking)**: CSRT is a high-performance tracker that uses the correlation filter framework with spatial and channel reliability checks to improve tracking accuracy. 
 
-- **MOSSE**:
+- **MOSSE (Minimum Output Sum of Squared Error)**: MOSSE is a lightweight and efficient tracker that utilizes a fast Fourier transform to learn and update the object's appearance model
     
 - **GOTURN**: GOTURN (Generic Object Tracking Using Regression Networks) employs deep convolutional neural networks to predict object locations.
 
-- **DaSiamRPN**: 
+- **DaSiamRPN (SiamRPN-based tracker with distractor-aware attention)**: DaSiamRPN integrates a Siamese network with a Region Proposal Network (RPN) to perform object tracking efficiently, with a focus on handling distractors.
 
-- **Nano**: 
+- **Nano**: The Nano tracker is a lightweight DNN-based general object tracking algorithm, designed for fast and efficient tracking on resource-constrained devices.
 
-- **VIT**: 
+- **VIT (Vision Transformers)**: VIT tracker employs vision transformers, which are a type of neural network architecture, for general object tracking tasks, leveraging their capabilities in capturing long-range dependencies in images.
 
 ## **Dataset**
 
