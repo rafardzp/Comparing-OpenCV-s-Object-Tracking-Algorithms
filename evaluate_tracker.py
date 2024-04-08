@@ -10,8 +10,10 @@ import os
 def parse_args():
     ap = argparse.ArgumentParser(description="Evaluate a specified tracker on a video set and extract performance metrics")
     ap.add_argument("-t", "--tracker", type=str, help="String defining the tracker")
-    ap.add_argument("-s", "--store_videos", type=bool, help="Boolean to define is videos are saved", default=True)
-    ap.add_argument("-v", "--verbose", type=bool, help="Boolean to define if videos are shown", default=True)
+    ap.add_argument("-s", "--store_videos", action='store_false', 
+                    help="Boolean to define if videos are saved", default=True)
+    ap.add_argument("-v", "--verbose", action='store_false', 
+                    help="Boolean to define if videos are shown", default=True)
     
     if len(sys.argv) == 1:
         ap.print_help()
@@ -45,7 +47,7 @@ def create_tracker(tracker_type):
     
     elif tracker_type == 'GOTURN':
         params = cv2.TrackerGOTURN_Params()
-        params.modelBin = "Models/goturn.caffemodel.zip"
+        params.modelBin = "Models/goturn.caffemodel"
         params.modelTxt = "Models/goturn.prototxt"
         return cv2.TrackerGOTURN.create(params)
     
@@ -96,6 +98,7 @@ if __name__ == '__main__':
 
     # Parse arguments
     args = parse_args()
+    print(f"Calling with args: {args}")
 
     # List of trackers to compare
     tracker_types = ['KCF', 'CSRT', 'BOOSTING', 'MedianFlow', 'MIL', 'MOSSE', 'TLD', 
@@ -199,14 +202,15 @@ if __name__ == '__main__':
                                 int(gt_bbox[1] + gt_bbox[3])), (0, 255, 0), 2)
                 cv2.rectangle(frame, (int(bbox[0]), int(bbox[1])), (int(bbox[0] + bbox[2]), 
                                 int(bbox[1] + bbox[3])), (0, 0, 255), 2)
-                cv2.putText(frame, "FPS : " + str(int(fps[-1])), (50, 50), cv2.FONT_HERSHEY_DUPLEX, 0.75, (0, 0, 255), 2)
+                cv2.putText(frame, "FPS : " + str(int(fps[-1])), (20, 40), cv2.FONT_HERSHEY_DUPLEX, 0.75, (0, 0, 255), 2)
 
                 if args.store_videos:
                     output_video.write(frame)
 
             else:
                 total_failures += 1
-                cv2.putText(frame, "Tracking failure detected", (100, 80), cv2.FONT_HERSHEY_DUPLEX, 0.75, (255, 0, 0), 2)
+                iou.append(0)
+                cv2.putText(frame, "Tracking failure detected", (20, 40), cv2.FONT_HERSHEY_DUPLEX, 0.75, (0, 0, 255), 2)
                 
                 if args.store_videos:
                     output_video.write(frame)
