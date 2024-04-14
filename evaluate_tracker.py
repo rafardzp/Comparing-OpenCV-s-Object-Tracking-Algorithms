@@ -132,19 +132,19 @@ if __name__ == '__main__':
             continue
 
         video_name = os.path.splitext(video_file)[0]
-        # gt_file = os.path.join(gt_folder, f"{video_name}.txt")
-        gt_file = os.path.join(gt_folder, f"{video_name}.mat")
+        gt_file = os.path.join(gt_folder, f"{video_name}.txt")
+        # gt_file = os.path.join(gt_folder, f"{video_name}.mat")
 
         # Read video
         video_capture = cv2.VideoCapture(video_path)
 
         # Read GT file
-        # with open(gt_file, 'r') as f:
-        #     lines = f.readlines()
-        #     gt_bbox_list = [list(map(int, line.strip().split(','))) for line in lines]
+        with open(gt_file, 'r') as f:
+            lines = f.readlines()
+            gt_bbox_list = [list(map(int, line.strip().split(','))) for line in lines]
 
-        gt_data = scipy.io.loadmat(gt_file)
-        gt_bbox_list = gt_data['labels']
+        # gt_data = scipy.io.loadmat(gt_file)
+        # gt_bbox_list = gt_data['labels']
         
         # Create video to save if needed
         if args.store_videos:
