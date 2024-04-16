@@ -6,3 +6,6 @@ frames_to_video.py
 
 # Ignore output videos
 /Output/Videos
+
+# Ignore Models folder
+/Models
