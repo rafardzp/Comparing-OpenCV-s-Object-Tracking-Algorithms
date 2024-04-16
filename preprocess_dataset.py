@@ -7,7 +7,7 @@ def create_video_from_images(image_folder, video_name):
     frame = cv2.imread(os.path.join(image_folder, images[0]))
     height, width, layers = frame.shape
 
-    video = cv2.VideoWriter(video_name, 0, 30, (width, height))
+    video = cv2.VideoWriter(video_name, 0, 15, (width, height))
 
     for image in images:
         video.write(cv2.imread(os.path.join(image_folder, image)))
@@ -21,10 +21,11 @@ if __name__ == '__main__':
 
     for i, folder in enumerate(folders):
         # Create video
-        create_video_from_images(os.path.join("Videos/val", folder), f"Videos/video00{i}" + ".avi")
+        if i % 4 == 0 and i != 2: # Save 25% of videos
+            create_video_from_images(os.path.join("Videos/val", folder), f"Videos/video00{i}" + ".avi")
 
-        # Extract GT
-        gt_file_path = os.path.join("Videos/val", folder, "groundtruth.txt")
-        if os.path.exists(gt_file_path):
-            new_gt_file_path = os.path.join("Videos/GT", f"video00{i}.txt")
-            shutil.move(gt_file_path, new_gt_file_path)
+            # Extract GT
+            gt_file_path = os.path.join("Videos/val", folder, "groundtruth.txt")
+            if os.path.exists(gt_file_path):
+                new_gt_file_path = os.path.join("Videos/GT", f"video00{i}.txt")
+                shutil.move(gt_file_path, new_gt_file_path)
