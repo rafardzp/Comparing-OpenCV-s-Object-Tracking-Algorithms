@@ -119,7 +119,7 @@ if __name__ == '__main__':
 
     if args.store_videos and not os.path.exists(output_folder + "Videos/"):
         os.makedirs(output_folder + "Videos/")
-
+    
     # Variable to store results
     results = []
 
@@ -141,7 +141,7 @@ if __name__ == '__main__':
         # Read GT file
         with open(gt_file, 'r') as f:
             lines = f.readlines()
-            gt_bbox_list = [list(map(int, line.strip().split(','))) for line in lines]
+            gt_bbox_list = [[int(float(elem)) for elem in line.strip().split(',')] for line in lines]
 
         # gt_data = scipy.io.loadmat(gt_file)
         # gt_bbox_list = gt_data['labels']
@@ -155,6 +155,19 @@ if __name__ == '__main__':
             output_video_path = os.path.join(output_folder + 'Videos/', f'{video_name}_{args.tracker}_output.avi')
             fourcc = cv2.VideoWriter_fourcc(*'XVID')
             output_video = cv2.VideoWriter(output_video_path, fourcc, video_fps, (frame_width, frame_height))
+        
+        # Set fixed window size mantaining aspect ratio
+        if args.verbose:
+            max_window_width = 800
+            max_window_height = 600
+
+            aspect_ratio = frame_width / frame_height
+
+            window_width = min(max_window_width, int(max_window_height * aspect_ratio))
+            window_height = min(max_window_height, int(max_window_width / aspect_ratio))
+
+            cv2.namedWindow(video_name, cv2.WINDOW_NORMAL)
+            cv2.resizeWindow(video_name, window_width, window_height)
 
         # Read first frame
         success, frame = video_capture.read()
