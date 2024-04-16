@@ -3,3 +3,6 @@
 
 # Ignore utils
 frames_to_video.py
+
+# Ignore output videos
+/Output/Videos
