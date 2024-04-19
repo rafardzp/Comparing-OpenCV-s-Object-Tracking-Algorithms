@@ -147,10 +147,11 @@ if __name__ == '__main__':
         # gt_bbox_list = gt_data['labels']
         
         # Create video to save if needed
+        frame_width = int(video_capture.get(cv2.CAP_PROP_FRAME_WIDTH))
+        frame_height = int(video_capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
         if args.store_videos:
             video_fps = video_capture.get(cv2.CAP_PROP_FPS)
-            frame_width = int(video_capture.get(cv2.CAP_PROP_FRAME_WIDTH))
-            frame_height = int(video_capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
             output_video_path = os.path.join(output_folder + 'Videos/', f'{video_name}_{args.tracker}_output.avi')
             fourcc = cv2.VideoWriter_fourcc(*'XVID')
