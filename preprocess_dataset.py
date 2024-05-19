@@ -24,7 +24,7 @@ if __name__ == '__main__':
         create_video_from_images(os.path.join("Videos/val", folder), f"Videos/video00{i}" + ".avi")
 
         # Extract GT
-        # gt_file_path = os.path.join("Videos/val", folder, "groundtruth.txt")
-        # if os.path.exists(gt_file_path):
-        #     new_gt_file_path = os.path.join("Videos/GT", f"video00{i}.txt")
-        #     shutil.move(gt_file_path, new_gt_file_path)
+        gt_file_path = os.path.join("Videos/val", folder, "groundtruth.txt")
+        if os.path.exists(gt_file_path):
+            new_gt_file_path = os.path.join("Videos/GT", f"video00{i}.txt")
+            shutil.move(gt_file_path, new_gt_file_path)
