@@ -1,6 +1,6 @@
 # **Comparing OpenCV's Object Tracking Algorithms**
 
-**Authors:** [Rafael Rodríguez](https://github.com/rafardzp), [Alba Martínez]()
+**Authors:** [Rafael Rodríguez](https://github.com/rafardzp), [Alba Martínez](https://github.com/alba-ms)
 
 This repository contains code and resources for comparing different object tracking algorithms provided in the OpenCV library. The goal is to evaluate the performance, accuracy, and efficiency of these algorithms under various conditions and scenarios.
 
