@@ -11,8 +11,6 @@ This repository contains code and resources for comparing different object track
   - [**Introduction**](#introduction)
   - [**Tested Algorithms**](#tested-algorithms)
   - [**Dataset**](#dataset)
-  - [**Usage**](#usage)
-  - [**Results**](#results)
   - [**Contributing**](#contributing)
 
 ## **Introduction**
